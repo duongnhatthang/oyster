@@ -22,4 +22,8 @@
         "vf_lr": 3E-4,
         "context_lr": 3e-4
     }
+    ,
+    "util_params": {
+        "base_log_dir": "output2"
+    }
 }
