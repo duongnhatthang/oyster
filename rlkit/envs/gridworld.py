@@ -20,7 +20,7 @@ class BaseGridWorldEnv(Env):
      - reward is 1 at goal, 0 elsewhere
     """
 
-    def __init__(self, randomize_tasks=False, n_tasks=2, grid_size=(5,5)):
+    def __init__(self, randomize_tasks=False, n_tasks=2, grid_size=(100,100)):
         self.grid_size = grid_size
         if randomize_tasks:
             np.random.seed(1337)
