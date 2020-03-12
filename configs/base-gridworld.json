@@ -1,20 +1,20 @@
 {
     "env_name": "base-gridworld",
-    "n_train_tasks": 360,
-    "n_eval_tasks": 40,
+    "n_train_tasks": 90,
+    "n_eval_tasks": 10,
     "env_params": {
-        "n_tasks": 400,
+        "n_tasks": 100,
         "randomize_tasks": "True"
     }
     ,
     "algo_params": {
-        "num_initial_steps": 6000,
-        "num_steps_prior": 1200,
+        "num_initial_steps": 1500,
+        "num_steps_prior": 300,
         "num_steps_posterior": 0,
-        "num_extra_rl_steps_posterior": 1200,
+        "num_extra_rl_steps_posterior": 300,
         "num_train_steps_per_itr": 1000,
-        "num_steps_per_eval": 1800,
-        "max_path_length": 600,
+        "num_steps_per_eval": 450,
+        "max_path_length": 150,
         "reward_scale": 100.0,
         "kl_lambda": 0.1,
         "policy_lr": 3E-4,
