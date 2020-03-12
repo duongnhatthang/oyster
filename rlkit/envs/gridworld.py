@@ -13,6 +13,7 @@ class BaseGridWorldEnv(Env):
     Basic gridworld, no windy, no obstacle, deterministic environment, start at (0,0)
     Grid with origin at top-left.
     State: [x,y] current coordinate of the agent
+    Observation: current location and Mahattan distance to goal
     Action: 0-U, 1-R, 2-D, 3-L
 
      - tasks sampled uniformly for mxn grid
@@ -34,7 +35,7 @@ class BaseGridWorldEnv(Env):
                      ]
         self.goals = goals
         self.reset_task(0)
-        self.observation_space = spaces.Box(low=0, high=max(self.grid_size), shape=(2,), dtype=np.uint8) # If m != n => remember to check edge
+        self.observation_space = spaces.Box(low=0, high=self.grid_size[0]+self.grid_size[1], shape=(3,), dtype=np.uint8) # If m != n => remember to check edge
         # self.action_space = spaces.Discrete(4)
         self.action_space = spaces.Box(low=0, high=4, shape=(1,), dtype=np.uint8) # use spaces.Box instead of Discrete to easily integrate with current prj
 
@@ -57,7 +58,9 @@ class BaseGridWorldEnv(Env):
         return self.reset_model()
 
     def _get_obs(self):
-        return np.copy(self._state)
+        Mahattan_distance = np.abs(self._goal[0] - self._state[0]) + np.abs(self._goal[1] - self._state[1])
+        return np.array([self._state[0], self._state[1], Mahattan_distance])
+        # return np.copy(self._state)
 
     def _is_moveable(self, action):
         ''' not move if out of edges '''
@@ -85,7 +88,6 @@ class BaseGridWorldEnv(Env):
             elif action == 3:
                 self._state = self._state + np.array([-1,0])
         reward = int(np.array_equal(self._goal, self._state))
-        # reward = reward - 1e-3 #punish for taking any action
         done = False
         ob = self._get_obs()
         return ob, reward, done, dict()
