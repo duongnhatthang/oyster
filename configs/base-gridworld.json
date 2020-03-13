@@ -17,10 +17,10 @@
         "max_path_length": 150,
         "reward_scale": 100.0,
         "kl_lambda": 0.1,
-        "policy_lr": 3E-4,
-        "qf_lr": 3E-4,
-        "vf_lr": 3E-4,
-        "context_lr": 3e-4
+        "policy_lr": 3E-3,
+        "qf_lr": 3E-3,
+        "vf_lr": 3E-3,
+        "context_lr": 3e-3
     }
     ,
     "util_params": {
