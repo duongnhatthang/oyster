@@ -25,7 +25,9 @@ class BaseGridWorldEnv(Env):
         if randomize_tasks:
             np.random.seed(1337)
             # goals = [np.array([np.random.randint(self.grid_size[0]), np.random.randint(self.grid_size[1])]) for _ in range(n_tasks)] #Not unique
-            goals_id = np.random.shuffle(np.arange(self.grid_size[0]*self.grid_size[1]))[:n_tasks]
+            goals_id = np.arange(self.grid_size[0]*self.grid_size[1])
+            np.random.shuffle(goals_id)
+            goals_id = goals_id[:n_tasks]
             goals = [np.array([id//self.grid_size[0], id%self.grid_size[0]]) for id in goals_id]
         else:
             # some hand-coded goals for debugging. Optimal solution took 4 steps to any goal
