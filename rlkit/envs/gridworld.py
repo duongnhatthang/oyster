@@ -87,7 +87,8 @@ class BaseGridWorldEnv(Env):
                 self._state = self._state + np.array([0,1])
             elif action == 3:
                 self._state = self._state + np.array([-1,0])
-        reward = int(np.array_equal(self._goal, self._state))
+        # reward = int(np.array_equal(self._goal, self._state))
+        reward = -int(self._get_obs()[-1])
         done = False
         ob = self._get_obs()
         return ob, reward, done, dict()
