@@ -20,11 +20,13 @@ class BaseGridWorldEnv(Env):
      - reward is 1 at goal, 0 elsewhere
     """
 
-    def __init__(self, randomize_tasks=False, n_tasks=2, grid_size=(100,100)):
+    def __init__(self, randomize_tasks=False, n_tasks=2, grid_size=(5,5)):
         self.grid_size = grid_size
         if randomize_tasks:
             np.random.seed(1337)
-            goals = [np.array([np.random.randint(self.grid_size[0]), np.random.randint(self.grid_size[1])]) for _ in range(n_tasks)]
+            # goals = [np.array([np.random.randint(self.grid_size[0]), np.random.randint(self.grid_size[1])]) for _ in range(n_tasks)] #Not unique
+            goals_id = np.random.shuffle(np.arange(self.grid_size[0]*self.grid_size[1]))[:n_tasks]
+            goals = [np.array([id//self.grid_size[0], id%self.grid_size[0]]) for id in goals_id]
         else:
             # some hand-coded goals for debugging. Optimal solution took 4 steps to any goal
             goals = [np.array([3, 1]),
@@ -87,8 +89,8 @@ class BaseGridWorldEnv(Env):
                 self._state = self._state + np.array([0,1])
             elif action == 3:
                 self._state = self._state + np.array([-1,0])
-        # reward = int(np.array_equal(self._goal, self._state))
-        reward = -self._get_obs()[-1]
+        reward = int(np.array_equal(self._goal, self._state))
+        # reward = -self._get_obs()[-1]
         done = False
         ob = self._get_obs()
         return ob, reward, done, dict()
